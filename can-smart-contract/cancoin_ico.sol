@@ -24,4 +24,22 @@ contract cancoin_ico {
         require(usd_invested * usd_to_cancoins + total_cancoins_bought <= max_cancoins);
         _;
     }
+
+    //Getting the equity in Cancoins of an investor
+    function equity_in_cancoins(address investor) external view returns (uint) {
+        return equity_cancoins[investor];
+    }
+
+    //Getting the equity in USD of an investor
+    function equity_in_usd(address investor) external view returns (uint) {
+        return equity_usd[investor];
+    }
+
+    //Buying Cancoins
+    function buy_cancoins(address investor, uint usd_invested) external can_buy_cancoins(usd_invested) {
+        uint cancoins_bought = usd_invested * usd_to_cancoins;
+        equity_cancoins[investor] += cancoins_bought;
+        equity_usd[investor] = equity_cancoins[investor] / usd_to_cancoins;
+        total_cancoins_bought += cancoins_bought;
+    }
 }
