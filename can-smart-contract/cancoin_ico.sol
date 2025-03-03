@@ -42,4 +42,11 @@ contract cancoin_ico {
         equity_usd[investor] = equity_cancoins[investor] / usd_to_cancoins;
         total_cancoins_bought += cancoins_bought;
     }
+
+    //Selling Cancoins
+    function sell_cancoins(address investor, uint cancoins_sold) external {
+        equity_cancoins[investor] -= cancoins_sold;
+        equity_usd[investor] = equity_cancoins[investor] / usd_to_cancoins;
+        total_cancoins_bought -= cancoins_sold;
+    }
 }
